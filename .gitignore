@@ -15,6 +15,7 @@ frontend/build/
 
 # Logs & Temp
 *.log
+*.pdf
 .env
 .env.local
 .env.production
