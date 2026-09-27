@@ -1,0 +1,7 @@
+well_name,event_type,start_depth,end_depth,severity,description,npt_hours,mitigation_successful,source,confidence
+TEST-WELL-001,mud_loss,1200,1250,moderate,Partial mud loss observed while drilling through Barail Formation,8,true,synthetic,0.9
+TEST-WELL-001,stuck_pipe,1800,1850,high,Pipe stuck due to differential sticking,24,false,synthetic,0.85
+TEST-WELL-002,kick,2100,2150,high,Gas kick encountered,16,true,synthetic,0.9
+TEST-WELL-003,mud_loss,1300,1350,low,Minor mud losses,2,true,synthetic,0.8
+TEST-WELL-004,pressure_anomaly,1600,1650,moderate,Unexpected pressure increase,12,true,synthetic,0.85
+TEST-WELL-005,casing_issue,900,950,high,Casing failure during running,48,false,synthetic,0.9

@@ -1,0 +1,6 @@
+name,operator,latitude,longitude,total_depth,well_type,field,block,country,state,district
+TEST-WELL-001,Oil India Limited,26.0,91.0,3000,Production,Test Field,Block-A,India,Assam,Dibrugarh
+TEST-WELL-002,Oil India Limited,26.1,91.1,2800,Production,Test Field,Block-A,India,Assam,Dibrugarh
+TEST-WELL-003,Oil India Limited,25.9,90.9,3200,Exploration,Test Field,Block-B,India,Assam,Tinsukia
+TEST-WELL-004,Oil India Limited,26.2,91.2,2950,Production,Test Field,Block-A,India,Assam,Sibsagar
+TEST-WELL-005,Oil India Limited,25.8,90.8,3100,Exploration,Test Field,Block-B,India,Assam,Tinsukia

@@ -1,0 +1,14 @@
+well_name,formation_name,top_depth,base_depth,lithology,age,description
+TEST-WELL-001,Barail Formation,500,1500,Sandstone, Shale,Oligocene,Main reservoir formation
+TEST-WELL-001,Tipam Formation,1500,2500,Sandstone, Siltstone,Miocene,Secondary reservoir
+TEST-WELL-001,Girujan Formation,2500,3000,Clay, Shale,Pliocene,Seal formation
+TEST-WELL-002,Barail Formation,450,1400,Sandstone, Shale,Oligocene,Main reservoir formation
+TEST-WELL-002,Tipam Formation,1400,2400,Sandstone, Siltstone,Miocene,Secondary reservoir
+TEST-WELL-003,Barail Formation,550,1600,Sandstone, Shale,Oligocene,Main reservoir formation
+TEST-WELL-003,Tipam Formation,1600,2600,Sandstone, Siltstone,Miocene,Secondary reservoir
+TEST-WELL-003,Girujan Formation,2600,3200,Clay, Shale,Pliocene,Seal formation
+TEST-WELL-004,Barail Formation,480,1450,Sandstone, Shale,Oligocene,Main reservoir formation
+TEST-WELL-004,Tipam Formation,1450,2450,Sandstone, Siltstone,Miocene,Secondary reservoir
+TEST-WELL-005,Barail Formation,520,1550,Sandstone, Shale,Oligocene,Main reservoir formation
+TEST-WELL-005,Tipam Formation,1550,2550,Sandstone, Siltstone,Miocene,Secondary reservoir
+TEST-WELL-005,Girujan Formation,2550,3100,Clay, Shale,Pliocene,Seal formation
