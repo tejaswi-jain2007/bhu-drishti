@@ -1,0 +1,167 @@
+<template id="scene1-logo-intro-template">
+  <div
+    data-composition-id="scene1-logo-intro"
+    data-width="1920"
+    data-height="1080"
+    data-duration="1.5"
+  >
+    <div class="canvas">
+      <!-- Logo Container -->
+      <div class="logo-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 600px; left: 660px; top: 400px;">
+        <div style="font-size: 80px; font-weight: 900; color: #F97316; font-family: 'Inter', sans-serif; tracking: -0.05em; text-transform: uppercase;">
+          भू-DRISHTI
+        </div>
+        <div style="font-size: 24px; font-weight: 700; color: #E2E8F0; font-family: 'Inter', sans-serif; letter-spacing: 0.2em; margin-top: 10px;">
+          OIL INDIA LIMITED — SIH 2026
+        </div>
+      </div>
+
+      <!-- Expanding Ring -->
+      <div class="ring-container">
+        <svg viewBox="0 0 400 400" width="400" height="400">
+          <circle
+            class="ring"
+            cx="200"
+            cy="200"
+            r="120"
+            fill="none"
+            stroke="#F97316"
+            stroke-width="6"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene1-logo-intro"] .canvas {
+        width: 1920px;
+        height: 1080px;
+        background-color: #063A24;
+        position: relative;
+        overflow: hidden;
+      }
+
+      [data-composition-id="scene1-logo-intro"] .logo-container {
+        position: absolute;
+        left: 880px; /* Center X: 960 - 80 */
+        top: 420px; /* Center Y: 540 - 120 */
+        width: 160px;
+        height: 240px;
+        transform-origin: center center;
+      }
+
+      [data-composition-id="scene1-logo-intro"] .ring-container {
+        position: absolute;
+        left: 760px; /* 960 - 200 */
+        top: 340px; /* 540 - 200 */
+        width: 400px;
+        height: 400px;
+        pointer-events: none;
+      }
+
+      [data-composition-id="scene1-logo-intro"] .ring {
+        transform-origin: center center;
+        opacity: 0;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+
+        const pieces = {
+          tl: '[data-composition-id="scene1-logo-intro"] .logo-tl',
+          tr: '[data-composition-id="scene1-logo-intro"] .logo-tr',
+          ml: '[data-composition-id="scene1-logo-intro"] .logo-ml',
+          mr: '[data-composition-id="scene1-logo-intro"] .logo-mr',
+          bl: '[data-composition-id="scene1-logo-intro"] .logo-bl',
+        };
+
+        const ring = '[data-composition-id="scene1-logo-intro"] .ring';
+        const logoContainer = '[data-composition-id="scene1-logo-intro"] .logo-container';
+
+        // Initial positions: Corners of the screen
+        // Viewport is 1920x1080. Center is 960, 540.
+        // logo-container is at 880, 420.
+
+        tl.set(pieces.tl, { x: -960, y: -540 });
+        tl.set(pieces.tr, { x: 960, y: -540 });
+        tl.set(pieces.ml, { x: -960, y: 0 });
+        tl.set(pieces.mr, { x: 960, y: 0 });
+        tl.set(pieces.bl, { x: -960, y: 540 });
+
+        // 1. Converge to center with 3-frame stagger (approx 0.05s at 60fps)
+        // 2. Collide with slight bounce (overshoot 1.1x)
+        const convergeDuration = 0.6;
+        const stagger = 0.05;
+
+        const pieceArray = [pieces.tl, pieces.tr, pieces.ml, pieces.mr, pieces.bl];
+
+        pieceArray.forEach((piece, i) => {
+          tl.to(
+            piece,
+            {
+              x: 0,
+              y: 0,
+              duration: convergeDuration,
+              ease: "back.out(1.1)",
+            },
+            i * stagger,
+          );
+        });
+
+        // 3. On collision (approx at 0.6 + 4*0.05 = 0.8s), white ring expands
+        const collisionTime = convergeDuration + (pieceArray.length - 1) * stagger;
+
+        tl.fromTo(
+          ring,
+          { scale: 0.2, opacity: 1 },
+          {
+            scale: 2.5,
+            opacity: 0,
+            duration: 0.4,
+            ease: "power2.out",
+          },
+          collisionTime,
+        );
+
+        // 4. Logo pulses slightly
+        tl.to(
+          logoContainer,
+          {
+            scale: 1.05,
+            duration: 0.15,
+            ease: "power2.out",
+          },
+          collisionTime,
+        );
+
+        tl.to(
+          logoContainer,
+          {
+            scale: 1,
+            duration: 0.15,
+            ease: "power2.in",
+          },
+          collisionTime + 0.15,
+        );
+
+        // 5. Scale down to 0
+        tl.to(
+          logoContainer,
+          {
+            scale: 0,
+            duration: 0.3,
+            ease: "expo.in",
+            delay: 0.1,
+          },
+          collisionTime + 0.3,
+        );
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene1-logo-intro"] = tl;
+      })();
+    </script>
+  </div>
+</template>

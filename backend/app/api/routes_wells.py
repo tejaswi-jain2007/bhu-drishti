@@ -23,9 +23,12 @@ def get_provinces(db: Session = Depends(get_db)):
 
 @router.get("/nearby")
 def get_nearby_wells(
-    latitude: float = Query(..., description="Target Latitude (e.g., 27.5921 for Assam)"),
-    longitude: float = Query(..., description="Target Longitude (e.g., 95.3942)"),
-    radius_km: float = Query(25.0, description="Search radius in kilometers"),
+    latitude: Optional[float] = Query(None, description="Target Latitude"),
+    longitude: Optional[float] = Query(None, description="Target Longitude"),
+    lat: Optional[float] = Query(None, description="Alias for latitude"),
+    lon: Optional[float] = Query(None, description="Alias for longitude"),
+    radius_km: Optional[float] = Query(None, description="Search radius in kilometers"),
+    radius: Optional[float] = Query(None, description="Search radius in meters or km"),
     state: Optional[str] = Query(None, description="Filter by State"),
     district: Optional[str] = Query(None, description="Filter by District"),
     db: Session = Depends(get_db)
@@ -33,20 +36,28 @@ def get_nearby_wells(
     """
     Search and retrieve historical offset wells within a given radius.
     """
+    target_lat = latitude if latitude is not None else lat
+    target_lon = longitude if longitude is not None else lon
+    if target_lat is None:
+        target_lat = 27.4728
+    if target_lon is None:
+        target_lon = 94.9120
+
+    r_km = 25.0
+    if radius_km is not None:
+        r_km = radius_km
+    elif radius is not None:
+        r_km = radius / 1000.0 if radius > 500 else radius
+
     results = SpatialService.get_nearby_wells(
         db=db,
-        latitude=latitude,
-        longitude=longitude,
-        radius_km=radius_km,
+        latitude=target_lat,
+        longitude=target_lon,
+        radius_km=r_km,
         state=state,
         district=district
     )
-    return {
-        "target_coordinates": {"latitude": latitude, "longitude": longitude},
-        "search_radius_km": radius_km,
-        "wells_found_count": len(results),
-        "wells": results
-    }
+    return results
 
 @router.get("/{well_id}")
 def get_well_profile(well_id: str, db: Session = Depends(get_db)):
